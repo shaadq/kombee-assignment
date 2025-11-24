@@ -20,32 +20,30 @@ const HeroSection = async () => {
             </p>
           </div>
           <div>
-            <Image
-              src={urlFor(content?.image).url()}
-              alt=""
-              width={100}
-              height={100}
-              className="w-full"
-            />
+            {content?.image && (
+              <Image
+                src={urlFor(content?.image).url()}
+                alt=""
+                width={100}
+                height={100}
+                className="w-full"
+              />
+            )}
           </div>
         </div>
         <div className="grid grid-cols-6">
-          {content?.stats?.map(
-            (
-              stat: { label: string; value: string; unit: string },
-              index: number
-            ) => (
-              <div
-                key={index}
-                className="px-6 py-4 bg-white shadow-lg rounded-lg text-center w-fit m-auto"
-              >
-                <h2 className="mb-3 text-3xl font-bold text-[#42454A]">
-                  {stat.value} <span className="text-sm">{stat.unit}</span>
-                </h2>
-                <p className="font-light text-sm">{stat.label}</p>
-              </div>
-            )
-          )}
+          {content?.stats?.map((stat, index) => (
+            <div
+              key={index}
+              className="px-6 py-4 bg-white shadow-lg rounded-lg text-center w-fit m-auto"
+            >
+              <h2 className="mb-3 text-3xl font-bold text-[#42454A]">
+                {stat?.value ?? ""}{" "}
+                <span className="text-sm">{stat?.unit ?? ""}</span>
+              </h2>
+              <p className="font-light text-sm">{stat?.label ?? ""}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

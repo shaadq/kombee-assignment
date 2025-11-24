@@ -23,6 +23,7 @@ export type LandingPage = {
   productInfo?: ProductInfo;
   efficiencyMotor?: {
     title?: string;
+    subtitle?: string;
     description?: string;
     image?: {
       asset?: {
@@ -557,7 +558,7 @@ export type POST_QUERYResult = {
   } | null;
 } | null;
 // Variable: LANDING_PAGE_QUERY
-// Query: *[_type == "landingPage"][0]{    hero{      title,      subtitle,      image,      buttons[]{        label,        url      },      stats[]{        value,        label      }    },    productInfo{      title,      points,      image    },    efficiencyMotor{      title,      description,      image    },    accessories[]{      name,      description,      image    },    gallery{      sectionTitle,      images    },    colors[]{      label,      hex,      image    },    testimonials[]{      quote,      name,      role,      avatar    },    newsletter{      title,      description,      buttonLabel    }  }
+// Query: *[_type == "landingPage"][0]{    hero{      title,      subtitle,      image,      buttons[]{        label,        url      },      stats[]{        value,        label      }    },    productInfo{      title,      points,      image    },    efficiencyMotor{      title,      subtitle,      description,      image    },    accessories[]{      name,      description,      image    },    gallery{      sectionTitle,      images    },    colors[]{      label,      hex,      image    },    testimonials[]{      quote,      name,      role,      avatar    },    newsletter{      title,      description,      buttonLabel    }  }
 export type LANDING_PAGE_QUERYResult = {
   hero: {
     title: string | null;
@@ -601,6 +602,7 @@ export type LANDING_PAGE_QUERYResult = {
   } | null;
   efficiencyMotor: {
     title: string | null;
+    subtitle: string | null;
     description: string | null;
     image: {
       asset?: {
@@ -781,9 +783,10 @@ export type PRODUCT_INFO_QUERYResult = {
   } | null;
 } | null;
 // Variable: EFFICIENCY_MOTOR_QUERY
-// Query: *[_type == "landingPage"][0].efficiencyMotor{    title,    description,    image  }
+// Query: *[_type == "landingPage"][0].efficiencyMotor{    title,    subtitle,    description,    image  }
 export type EFFICIENCY_MOTOR_QUERYResult = {
   title: string | null;
+  subtitle: string | null;
   description: string | null;
   image: {
     asset?: {
@@ -1048,12 +1051,12 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"post\" && defined(slug.current)][0...12]{\n  _id, title, slug\n}": POSTS_QUERYResult;
     "*[_type == \"post\" && slug.current == $slug][0]{\n  title, body, mainImage\n}": POST_QUERYResult;
-    "\n  *[_type == \"landingPage\"][0]{\n    hero{\n      title,\n      subtitle,\n      image,\n      buttons[]{\n        label,\n        url\n      },\n      stats[]{\n        value,\n        label\n      }\n    },\n\n    productInfo{\n      title,\n      points,\n      image\n    },\n\n    efficiencyMotor{\n      title,\n      description,\n      image\n    },\n\n    accessories[]{\n      name,\n      description,\n      image\n    },\n\n    gallery{\n      sectionTitle,\n      images\n    },\n\n    colors[]{\n      label,\n      hex,\n      image\n    },\n\n    testimonials[]{\n      quote,\n      name,\n      role,\n      avatar\n    },\n\n    newsletter{\n      title,\n      description,\n      buttonLabel\n    }\n  }\n": LANDING_PAGE_QUERYResult;
+    "\n  *[_type == \"landingPage\"][0]{\n    hero{\n      title,\n      subtitle,\n      image,\n      buttons[]{\n        label,\n        url\n      },\n      stats[]{\n        value,\n        label\n      }\n    },\n\n    productInfo{\n      title,\n      points,\n      image\n    },\n\n    efficiencyMotor{\n      title,\n      subtitle,\n      description,\n      image\n    },\n\n    accessories[]{\n      name,\n      description,\n      image\n    },\n\n    gallery{\n      sectionTitle,\n      images\n    },\n\n    colors[]{\n      label,\n      hex,\n      image\n    },\n\n    testimonials[]{\n      quote,\n      name,\n      role,\n      avatar\n    },\n\n    newsletter{\n      title,\n      description,\n      buttonLabel\n    }\n  }\n": LANDING_PAGE_QUERYResult;
     "\n  *[_type == \"header\"][0]{\n    logo,\n    navItems[]{ label, url }\n  }\n": HEADER_QUERYResult;
     "\n  *[_type == \"footer\"][0]{\n    columns[]{\n      title,\n      links[]{ label, url }\n    },\n    socialLinks[]{ label, url },image\n  }\n": FOOTER_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].hero{\n    title,\n    titleBold,\n    subtitle,\n    image,\n    buttons[]{ label, url },\n    stats[]{ value, unit, label }\n  }\n": HERO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].productInfo{\n    title,\n    subtitle,\n    points,\n    image\n  }\n": PRODUCT_INFO_QUERYResult;
-    "\n  *[_type == \"landingPage\"][0].efficiencyMotor{\n    title,\n    description,\n    image\n  }\n": EFFICIENCY_MOTOR_QUERYResult;
+    "\n  *[_type == \"landingPage\"][0].efficiencyMotor{\n    title,\n    subtitle,\n    description,\n    image\n  }\n": EFFICIENCY_MOTOR_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].accessories[]{\n    name,\n    description,\n    image\n  }\n": ACCESSORIES_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].gallery{\n    sectionTitle,\n    images\n  }\n": GALLERY_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].colors[]{\n    label,\n    hex,\n    image\n  }\n": COLORS_QUERYResult;

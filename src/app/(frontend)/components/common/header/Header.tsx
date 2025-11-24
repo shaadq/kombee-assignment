@@ -9,17 +9,19 @@ const Header = async () => {
   return (
     <header className="h-[100px] shadow-sm">
       <div className="container flex items-center justify-between h-full">
-        <Image
-          src={urlFor(content?.logo).url()}
-          alt="Logo"
-          width={100}
-          height={100}
-        />
+        {content?.logo && (
+          <Image
+            src={urlFor(content.logo).url()}
+            alt="Logo"
+            width={100}
+            height={100}
+          />
+        )}
 
         <div className="flex items-center gap-10">
           {content?.navItems?.map((item, index) => (
             <Link
-              href={item.url}
+              href={item?.url || ""}
               key={index}
               className="uppercase text-[#42454A]"
             >

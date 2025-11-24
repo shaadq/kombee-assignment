@@ -17,13 +17,15 @@ const EfficiencySection = async () => {
           {content?.subtitle}
         </p>
 
-        <Image
-          src={urlFor(content?.image).url()}
-          alt=""
-          className="w-full"
-          width={100}
-          height={100}
-        />
+        {content?.image && (
+          <Image
+            src={urlFor(content?.image).url()}
+            alt=""
+            width={100}
+            height={100}
+            className="w-full"
+          />
+        )}
       </div>
     </section>
   );
