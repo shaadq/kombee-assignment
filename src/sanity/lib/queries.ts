@@ -72,7 +72,7 @@ export const LANDING_PAGE_QUERY = defineQuery(`
 export const HEADER_QUERY = defineQuery(`
   *[_type == "header"][0]{
     logo,
-    navItems[]{ label, url }
+    navItems[]{ label, url, type, children[] {label, url} }
   }
 `)
 
@@ -131,20 +131,12 @@ export const GALLERY_QUERY = defineQuery(`
 `)
 
 export const COLORS_QUERY = defineQuery(`
-  *[_type == "landingPage"][0].colors[]{
-    label,
-    hex,
-    image
-  }
+  *[_type == "landingPage"][0].color
+
 `)
 
 export const TESTIMONIALS_QUERY = defineQuery(`
-  *[_type == "landingPage"][0].testimonials[]{
-    quote,
-    name,
-    role,
-    avatar
-  }
+ *[_type == "landingPage"][0].testimonials
 `)
 
 export const NEWSLETTER_QUERY = defineQuery(`

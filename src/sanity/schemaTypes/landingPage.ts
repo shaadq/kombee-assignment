@@ -37,20 +37,28 @@ export const landingPage = defineType({
             type: 'gallery'
         }),
         defineField({
-            name: 'colors',
-            type: 'array',
-            of: [
-                defineArrayMember({
-                    type: 'colorOption'
-                })
-            ]
+            name: 'color',
+            type: 'color'
         }),
         defineField({
             name: 'testimonials',
-            type: 'array',
-            of: [
-                defineArrayMember({
-                    type: 'testimonial'
+            title: 'Testimonials Section',
+            type: 'object',
+            fields: [
+                defineField({
+                    name: 'title',
+                    title: 'Title',
+                    type: 'string'
+                }),
+                defineField({
+                    name: 'items',
+                    title: 'Testimonials',
+                    type: 'array',
+                    of: [
+                        defineArrayMember({
+                            type: 'testimonial'
+                        })
+                    ]
                 })
             ]
         }),

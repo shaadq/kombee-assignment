@@ -42,12 +42,13 @@ export type LandingPage = {
     _key: string;
   } & Accessory>;
   gallery?: Gallery;
-  colors?: Array<{
-    _key: string;
-  } & ColorOption>;
-  testimonials?: Array<{
-    _key: string;
-  } & Testimonial>;
+  color?: Color;
+  testimonials?: {
+    title?: string;
+    items?: Array<{
+      _key: string;
+    } & Testimonial>;
+  };
   newsletter?: Newsletter;
 };
 
@@ -56,6 +57,27 @@ export type Newsletter = {
   title?: string;
   description?: string;
   buttonLabel?: string;
+};
+
+export type Color = {
+  _type: "color";
+  title?: string;
+  subtitle?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  colors?: Array<{
+    _key: string;
+  } & ColorOption>;
 };
 
 export type Gallery = {
@@ -207,7 +229,13 @@ export type Cta = {
 export type NavItem = {
   _type: "navItem";
   label?: string;
+  type?: "link" | "dropdown";
   url?: string;
+  children?: Array<{
+    label?: string;
+    url?: string;
+    _key: string;
+  }>;
 };
 
 export type Footer = {
@@ -528,7 +556,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = LandingPage | Newsletter | Gallery | SanityImageCrop | SanityImageHotspot | ProductInfo | Hero | Testimonial | ColorOption | Accessory | StatItem | Cta | NavItem | Footer | Header | New | Slug | Post | BlockContent | Author | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = LandingPage | Newsletter | Color | Gallery | SanityImageCrop | SanityImageHotspot | ProductInfo | Hero | Testimonial | ColorOption | Accessory | StatItem | Cta | NavItem | Footer | Header | New | Slug | Post | BlockContent | Author | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: POSTS_QUERY
@@ -649,39 +677,8 @@ export type LANDING_PAGE_QUERYResult = {
       _key: string;
     }> | null;
   } | null;
-  colors: Array<{
-    label: string | null;
-    hex: string | null;
-    image: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    } | null;
-  }> | null;
-  testimonials: Array<{
-    quote: string | null;
-    name: string | null;
-    role: string | null;
-    avatar: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    } | null;
-  }> | null;
+  colors: null;
+  testimonials: null;
   newsletter: {
     title: string | null;
     description: string | null;
@@ -689,7 +686,7 @@ export type LANDING_PAGE_QUERYResult = {
   } | null;
 } | null;
 // Variable: HEADER_QUERY
-// Query: *[_type == "header"][0]{    logo,    navItems[]{ label, url }  }
+// Query: *[_type == "header"][0]{    logo,    navItems[]{ label, url, type, children[] {label, url} }  }
 export type HEADER_QUERYResult = {
   logo: {
     asset?: {
@@ -706,6 +703,11 @@ export type HEADER_QUERYResult = {
   navItems: Array<{
     label: string | null;
     url: string | null;
+    type: "dropdown" | "link" | null;
+    children: Array<{
+      label: string | null;
+      url: string | null;
+    }> | null;
   }> | null;
 } | null;
 // Variable: FOOTER_QUERY
@@ -838,42 +840,16 @@ export type GALLERY_QUERYResult = {
   }> | null;
 } | null;
 // Variable: COLORS_QUERY
-// Query: *[_type == "landingPage"][0].colors[]{    label,    hex,    image  }
-export type COLORS_QUERYResult = Array<{
-  label: string | null;
-  hex: string | null;
-  image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-}> | null;
+// Query: *[_type == "landingPage"][0].color
+export type COLORS_QUERYResult = Color | null;
 // Variable: TESTIMONIALS_QUERY
-// Query: *[_type == "landingPage"][0].testimonials[]{    quote,    name,    role,    avatar  }
-export type TESTIMONIALS_QUERYResult = Array<{
-  quote: string | null;
-  name: string | null;
-  role: string | null;
-  avatar: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-}> | null;
+// Query: *[_type == "landingPage"][0].testimonials
+export type TESTIMONIALS_QUERYResult = {
+  title?: string;
+  items?: Array<{
+    _key: string;
+  } & Testimonial>;
+} | null;
 // Variable: NEWSLETTER_QUERY
 // Query: *[_type == "landingPage"][0].newsletter{    title,    description,    buttonLabel  }
 export type NEWSLETTER_QUERYResult = {
@@ -991,39 +967,8 @@ export type FULL_PAGE_QUERYResult = {
         _key: string;
       }> | null;
     } | null;
-    colors: Array<{
-      label: string | null;
-      hex: string | null;
-      image: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-      } | null;
-    }> | null;
-    testimonials: Array<{
-      quote: string | null;
-      name: string | null;
-      role: string | null;
-      avatar: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-      } | null;
-    }> | null;
+    colors: null;
+    testimonials: null;
     newsletter: {
       title: string | null;
       description: string | null;
@@ -1052,15 +997,15 @@ declare module "@sanity/client" {
     "*[_type == \"post\" && defined(slug.current)][0...12]{\n  _id, title, slug\n}": POSTS_QUERYResult;
     "*[_type == \"post\" && slug.current == $slug][0]{\n  title, body, mainImage\n}": POST_QUERYResult;
     "\n  *[_type == \"landingPage\"][0]{\n    hero{\n      title,\n      subtitle,\n      image,\n      buttons[]{\n        label,\n        url\n      },\n      stats[]{\n        value,\n        label\n      }\n    },\n\n    productInfo{\n      title,\n      points,\n      image\n    },\n\n    efficiencyMotor{\n      title,\n      subtitle,\n      description,\n      image\n    },\n\n    accessories[]{\n      name,\n      description,\n      image\n    },\n\n    gallery{\n      sectionTitle,\n      images\n    },\n\n    colors[]{\n      label,\n      hex,\n      image\n    },\n\n    testimonials[]{\n      quote,\n      name,\n      role,\n      avatar\n    },\n\n    newsletter{\n      title,\n      description,\n      buttonLabel\n    }\n  }\n": LANDING_PAGE_QUERYResult;
-    "\n  *[_type == \"header\"][0]{\n    logo,\n    navItems[]{ label, url }\n  }\n": HEADER_QUERYResult;
+    "\n  *[_type == \"header\"][0]{\n    logo,\n    navItems[]{ label, url, type, children[] {label, url} }\n  }\n": HEADER_QUERYResult;
     "\n  *[_type == \"footer\"][0]{\n    columns[]{\n      title,\n      links[]{ label, url }\n    },\n    socialLinks[]{ label, url },image\n  }\n": FOOTER_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].hero{\n    title,\n    titleBold,\n    subtitle,\n    image,\n    buttons[]{ label, url },\n    stats[]{ value, unit, label }\n  }\n": HERO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].productInfo{\n    title,\n    subtitle,\n    points,\n    image\n  }\n": PRODUCT_INFO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].efficiencyMotor{\n    title,\n    subtitle,\n    description,\n    image\n  }\n": EFFICIENCY_MOTOR_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].accessories[]{\n    name,\n    description,\n    image\n  }\n": ACCESSORIES_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].gallery{\n    sectionTitle,\n    images\n  }\n": GALLERY_QUERYResult;
-    "\n  *[_type == \"landingPage\"][0].colors[]{\n    label,\n    hex,\n    image\n  }\n": COLORS_QUERYResult;
-    "\n  *[_type == \"landingPage\"][0].testimonials[]{\n    quote,\n    name,\n    role,\n    avatar\n  }\n": TESTIMONIALS_QUERYResult;
+    "\n  *[_type == \"landingPage\"][0].color\n\n": COLORS_QUERYResult;
+    "\n *[_type == \"landingPage\"][0].testimonials\n": TESTIMONIALS_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].newsletter{\n    title,\n    description,\n    buttonLabel\n  }\n": NEWSLETTER_QUERYResult;
     "\n{\n  \"header\": *[_type == \"header\"][0]{\n    logo,\n    navItems[]{ label, url }\n  },\n\n  \"landingPage\": *[_type == \"landingPage\"][0]{\n    hero{\n      title,\n      subtitle,\n      image,\n      buttons[]{ label, url },\n      stats[]{ value, label }\n    },\n    productInfo{\n      title,\n      points,\n      image\n    },\n    efficiencyMotor{\n      title,\n      description,\n      image\n    },\n    accessories[]{\n      name,\n      description,\n      image\n    },\n    gallery{\n      sectionTitle,\n      images\n    },\n    colors[]{\n      label,\n      hex,\n      image\n    },\n    testimonials[]{\n      quote,\n      name,\n      role,\n      avatar\n    },\n    newsletter{\n      title,\n      description,\n      buttonLabel\n    }\n  },\n\n  \"footer\": *[_type == \"footer\"][0]{\n    columns[]{\n      title,\n      links[]{ label, url }\n    },\n    socialLinks[]{ label, url }\n  }\n}\n": FULL_PAGE_QUERYResult;
   }

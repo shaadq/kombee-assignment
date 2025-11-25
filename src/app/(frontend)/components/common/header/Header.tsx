@@ -3,9 +3,12 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { HEADER_QUERY } from "@/sanity/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+import CustomDropdown from "./CustomDropdown";
 
 const Header = async () => {
   const { data: content } = await sanityFetch({ query: HEADER_QUERY });
+
   return (
     <header className="h-[100px] shadow-sm">
       <div className="container flex items-center justify-between h-full">
@@ -19,14 +22,20 @@ const Header = async () => {
         )}
 
         <div className="flex items-center gap-10">
-          {content?.navItems?.map((item, index) => (
-            <Link
-              href={item?.url || ""}
-              key={index}
-              className="uppercase text-[#42454A]"
-            >
-              {item?.label}
-            </Link>
+          {content?.navItems?.map((item, index: number) => (
+            <React.Fragment key={index}>
+              {item.type === "dropdown" ? (
+                <CustomDropdown item={item} />
+              ) : (
+                <Link
+                  href={item?.url || ""}
+                  key={index}
+                  className="uppercase text-[#42454A]"
+                >
+                  {item?.label}
+                </Link>
+              )}
+            </React.Fragment>
           ))}
         </div>
 
