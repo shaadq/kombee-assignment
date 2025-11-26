@@ -152,7 +152,15 @@ export const COLORS_QUERY = defineQuery(`
 `)
 
 export const TESTIMONIALS_QUERY = defineQuery(`
- *[_type == "landingPage"][0].testimonials
+  *[_type == "landingPage"][0].testimonials{
+    title,
+    items[]{
+      quote,
+      name,
+      role,
+      avatar
+    }
+  }
 `)
 
 export const NEWSLETTER_QUERY = defineQuery(`
@@ -163,64 +171,3 @@ export const NEWSLETTER_QUERY = defineQuery(`
   }
 `)
 
-export const FULL_PAGE_QUERY = defineQuery(`
-{
-  "header": *[_type == "header"][0]{
-    logo,
-    navItems[]{ label, url }
-  },
-
-  "landingPage": *[_type == "landingPage"][0]{
-    hero{
-      title,
-      subtitle,
-      image,
-      buttons[]{ label, url },
-      stats[]{ value, label }
-    },
-    productInfo{
-      title,
-      points,
-      image
-    },
-    efficiencyMotor{
-      title,
-      description,
-      image
-    },
-    accessories[]{
-      name,
-      description,
-      image
-    },
-    gallery{
-      sectionTitle,
-      images
-    },
-    colors[]{
-      label,
-      hex,
-      image
-    },
-    testimonials[]{
-      quote,
-      name,
-      role,
-      avatar
-    },
-    newsletter{
-      title,
-      description,
-      buttonLabel
-    }
-  },
-
-  "footer": *[_type == "footer"][0]{
-    columns[]{
-      title,
-      links[]{ label, url }
-    },
-    socialLinks[]{ label, url }
-  }
-}
-`)

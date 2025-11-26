@@ -32,7 +32,7 @@ const TestimonialSwiper = ({ testimonials }: TestimonialSwiperProps) => {
         slidesPerView={3}
         loop={true}
       >
-        {[...testimonials, ...testimonials].map((item, idx) => (
+        {testimonials.map((item, idx) => (
           <SwiperSlide key={idx}>
             <div className="border border-[#D8D8D8] px-10 py-8">
               <div className="flex items-center justify-center mb-8">
