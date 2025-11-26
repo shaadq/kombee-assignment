@@ -131,13 +131,20 @@ export const ACCESSORIES_QUERY = defineQuery(`
   }
 `)
 
-
 export const GALLERY_QUERY = defineQuery(`
   *[_type == "landingPage"][0].gallery{
-    sectionTitle,
-    images
+    title,
+    subtitle,
+    points[] {
+      text,
+      url
+    },
+    images[] {
+      title,
+      image
+    }
   }
-`)
+`);
 
 export const COLORS_QUERY = defineQuery(`
   *[_type == "landingPage"][0].color

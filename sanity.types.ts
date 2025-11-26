@@ -80,18 +80,27 @@ export type Color = {
 
 export type Gallery = {
   _type: "gallery";
-  sectionTitle?: string;
+  title?: string;
+  subtitle?: string;
+  points?: Array<{
+    text?: string;
+    url?: string;
+    _key: string;
+  }>;
   images?: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
     };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
     _key: string;
   }>;
 };
@@ -664,18 +673,21 @@ export type LANDING_PAGE_QUERYResult = {
   } | null;
   accessories: null;
   gallery: {
-    sectionTitle: string | null;
+    sectionTitle: null;
     images: Array<{
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      title?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
       };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
       _key: string;
     }> | null;
   } | null;
@@ -842,21 +854,28 @@ export type ACCESSORIES_QUERYResult = {
   }> | null;
 } | null;
 // Variable: GALLERY_QUERY
-// Query: *[_type == "landingPage"][0].gallery{    sectionTitle,    images  }
+// Query: *[_type == "landingPage"][0].gallery{    title,    subtitle,    points[] {      text,      url    },    images[] {      title,      image    }  }
 export type GALLERY_QUERYResult = {
-  sectionTitle: string | null;
+  title: string | null;
+  subtitle: string | null;
+  points: Array<{
+    text: string | null;
+    url: string | null;
+  }> | null;
   images: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-    _key: string;
+    title: string | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
   }> | null;
 } | null;
 // Variable: COLORS_QUERY
@@ -957,18 +976,21 @@ export type FULL_PAGE_QUERYResult = {
     } | null;
     accessories: null;
     gallery: {
-      sectionTitle: string | null;
+      sectionTitle: null;
       images: Array<{
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        title?: string;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
         };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
         _key: string;
       }> | null;
     } | null;
@@ -1005,7 +1027,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"landingPage\"][0].productInfo{\n    title,\n    subtitle,\n    points,\n    image\n  }\n": PRODUCT_INFO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].efficiencyMotor{\n    title,\n    subtitle,\n    description,\n    image\n  }\n": EFFICIENCY_MOTOR_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].accessories{\n    title,\n    subtitle,\n    buttonText,\n    buttonUrl,\n    items[]{\n      title,\n      image,\n      points\n    }\n  }\n": ACCESSORIES_QUERYResult;
-    "\n  *[_type == \"landingPage\"][0].gallery{\n    sectionTitle,\n    images\n  }\n": GALLERY_QUERYResult;
+    "\n  *[_type == \"landingPage\"][0].gallery{\n    title,\n    subtitle,\n    points[] {\n      text,\n      url\n    },\n    images[] {\n      title,\n      image\n    }\n  }\n": GALLERY_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].color\n\n": COLORS_QUERYResult;
     "\n *[_type == \"landingPage\"][0].testimonials\n": TESTIMONIALS_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].newsletter{\n    title,\n    description,\n    buttonLabel\n  }\n": NEWSLETTER_QUERYResult;

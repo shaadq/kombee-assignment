@@ -3,8 +3,6 @@ import { NEWSLETTER_QUERY } from "@/sanity/lib/queries";
 
 const NewsletterSection = async () => {
   const { data: content } = await sanityFetch({ query: NEWSLETTER_QUERY });
-
-  console.log(content);
   return (
     <section className="py-10">
       <div className="container">
