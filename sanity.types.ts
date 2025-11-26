@@ -182,9 +182,20 @@ export type Hero = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  buttons?: Array<{
-    _key: string;
-  } & Cta>;
+  buttonText?: string;
+  buttonUrl?: string;
+  videoPlayButton?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   stats?: Array<{
     _key: string;
   } & StatItem>;
@@ -319,173 +330,6 @@ export type Header = {
   } & NavItem>;
 };
 
-export type New = {
-  _id: string;
-  _type: "new";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  bio?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-};
-
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
-};
-
-export type Post = {
-  _id: string;
-  _type: "post";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  author?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "author";
-  };
-  mainImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  categories?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
-  publishedAt?: string;
-  body?: BlockContent;
-};
-
-export type BlockContent = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-  listItem?: "bullet";
-  markDefs?: Array<{
-    href?: string;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
-  _type: "block";
-  _key: string;
-} | {
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-  };
-  media?: unknown;
-  hotspot?: SanityImageHotspot;
-  crop?: SanityImageCrop;
-  alt?: string;
-  _type: "image";
-  _key: string;
-}>;
-
-export type Author = {
-  _id: string;
-  _type: "author";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  bio?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-};
-
-export type Category = {
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  description?: string;
-};
-
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
   background?: string;
@@ -582,35 +426,21 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = LandingPage | Newsletter | Color | Gallery | Accessory | SanityImageCrop | SanityImageHotspot | ProductInfo | Hero | Testimonial | ColorOption | StatItem | Cta | NavItem | Footer | Header | New | Slug | Post | BlockContent | Author | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
+};
+
+export type AllSanitySchemaTypes = LandingPage | Newsletter | Color | Gallery | Accessory | SanityImageCrop | SanityImageHotspot | ProductInfo | Hero | Testimonial | ColorOption | StatItem | Cta | NavItem | Footer | Header | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: POSTS_QUERY
 // Query: *[_type == "post" && defined(slug.current)][0...12]{  _id, title, slug}
-export type POSTS_QUERYResult = Array<{
-  _id: string;
-  title: string | null;
-  slug: Slug | null;
-}>;
+export type POSTS_QUERYResult = Array<never>;
 // Variable: POST_QUERY
 // Query: *[_type == "post" && slug.current == $slug][0]{  title, body, mainImage}
-export type POST_QUERYResult = {
-  title: string | null;
-  body: BlockContent | null;
-  mainImage: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  } | null;
-} | null;
+export type POST_QUERYResult = null;
 // Variable: LANDING_PAGE_QUERY
 // Query: *[_type == "landingPage"][0]{    hero{      title,      subtitle,      image,      buttons[]{        label,        url      },      stats[]{        value,        label      }    },    productInfo{      title,      points,      image    },    efficiencyMotor{      title,      subtitle,      description,      image    },    accessories[]{      name,      description,      image    },    gallery{      sectionTitle,      images    },    colors[]{      label,      hex,      image    },    testimonials[]{      quote,      name,      role,      avatar    },    newsletter{      title,      description,      buttonLabel    }  }
 export type LANDING_PAGE_QUERYResult = {
@@ -629,10 +459,7 @@ export type LANDING_PAGE_QUERYResult = {
       crop?: SanityImageCrop;
       _type: "image";
     } | null;
-    buttons: Array<{
-      label: string | null;
-      url: string | null;
-    }> | null;
+    buttons: null;
     stats: Array<{
       value: string | null;
       label: string | null;
@@ -764,7 +591,7 @@ export type FOOTER_QUERYResult = {
   copyright: string | null;
 } | null;
 // Variable: HERO_QUERY
-// Query: *[_type == "landingPage"][0].hero{    title,    titleBold,    subtitle,    image,    buttons[]{ label, url },    stats[]{ value, unit, label }  }
+// Query: *[_type == "landingPage"][0].hero{    title,    titleBold,    subtitle,    image,    buttonText,    buttonUrl,    videoPlayButton,    stats[]{ value, unit, label }  }
 export type HERO_QUERYResult = {
   title: string | null;
   titleBold: string | null;
@@ -781,10 +608,20 @@ export type HERO_QUERYResult = {
     crop?: SanityImageCrop;
     _type: "image";
   } | null;
-  buttons: Array<{
-    label: string | null;
-    url: string | null;
-  }> | null;
+  buttonText: string | null;
+  buttonUrl: string | null;
+  videoPlayButton: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
   stats: Array<{
     value: string | null;
     unit: string | null;
@@ -920,7 +757,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"landingPage\"][0]{\n    hero{\n      title,\n      subtitle,\n      image,\n      buttons[]{\n        label,\n        url\n      },\n      stats[]{\n        value,\n        label\n      }\n    },\n\n    productInfo{\n      title,\n      points,\n      image\n    },\n\n    efficiencyMotor{\n      title,\n      subtitle,\n      description,\n      image\n    },\n\n    accessories[]{\n      name,\n      description,\n      image\n    },\n\n    gallery{\n      sectionTitle,\n      images\n    },\n\n    colors[]{\n      label,\n      hex,\n      image\n    },\n\n    testimonials[]{\n      quote,\n      name,\n      role,\n      avatar\n    },\n\n    newsletter{\n      title,\n      description,\n      buttonLabel\n    }\n  }\n": LANDING_PAGE_QUERYResult;
     "\n  *[_type == \"header\"][0]{\n    logo,\n    navItems[]{ label, url, type, children[] {label, url} }\n  }\n": HEADER_QUERYResult;
     "\n  *[_type == \"footer\"][0]{\n    columns[]{\n      title,\n      links[]{ label, url }\n    },\n    socials[]{ image, url },\n    image,\n    copyright\n  }\n": FOOTER_QUERYResult;
-    "\n  *[_type == \"landingPage\"][0].hero{\n    title,\n    titleBold,\n    subtitle,\n    image,\n    buttons[]{ label, url },\n    stats[]{ value, unit, label }\n  }\n": HERO_QUERYResult;
+    "\n  *[_type == \"landingPage\"][0].hero{\n    title,\n    titleBold,\n    subtitle,\n    image,\n    buttonText,\n    buttonUrl,\n    videoPlayButton,\n    stats[]{ value, unit, label }\n  }\n": HERO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].productInfo{\n    title,\n    subtitle,\n    points,\n    image\n  }\n": PRODUCT_INFO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].efficiencyMotor{\n    title,\n    subtitle,\n    description,\n    image\n  }\n": EFFICIENCY_MOTOR_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].accessories{\n    title,\n    subtitle,\n    buttonText,\n    buttonUrl,\n    items[]{\n      title,\n      image,\n      points\n    }\n  }\n": ACCESSORIES_QUERYResult;

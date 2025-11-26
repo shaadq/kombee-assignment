@@ -1,12 +1,14 @@
-import { defineQuery } from 'next-sanity'
+import { defineQuery } from "next-sanity";
 
-export const POSTS_QUERY = defineQuery(`*[_type == "post" && defined(slug.current)][0...12]{
+export const POSTS_QUERY =
+  defineQuery(`*[_type == "post" && defined(slug.current)][0...12]{
   _id, title, slug
-}`)
+}`);
 
-export const POST_QUERY = defineQuery(`*[_type == "post" && slug.current == $slug][0]{
+export const POST_QUERY =
+  defineQuery(`*[_type == "post" && slug.current == $slug][0]{
   title, body, mainImage
-}`)
+}`);
 
 export const LANDING_PAGE_QUERY = defineQuery(`
   *[_type == "landingPage"][0]{
@@ -67,14 +69,14 @@ export const LANDING_PAGE_QUERY = defineQuery(`
       buttonLabel
     }
   }
-`)
+`);
 
 export const HEADER_QUERY = defineQuery(`
   *[_type == "header"][0]{
     logo,
     navItems[]{ label, url, type, children[] {label, url} }
   }
-`)
+`);
 
 export const FOOTER_QUERY = defineQuery(`
   *[_type == "footer"][0]{
@@ -86,7 +88,7 @@ export const FOOTER_QUERY = defineQuery(`
     image,
     copyright
   }
-`)
+`);
 
 export const HERO_QUERY = defineQuery(`
   *[_type == "landingPage"][0].hero{
@@ -94,10 +96,12 @@ export const HERO_QUERY = defineQuery(`
     titleBold,
     subtitle,
     image,
-    buttons[]{ label, url },
+    buttonText,
+    buttonUrl,
+    videoPlayButton,
     stats[]{ value, unit, label }
   }
-`)
+`);
 
 export const PRODUCT_INFO_QUERY = defineQuery(`
   *[_type == "landingPage"][0].productInfo{
@@ -106,7 +110,7 @@ export const PRODUCT_INFO_QUERY = defineQuery(`
     points,
     image
   }
-`)
+`);
 
 export const EFFICIENCY_MOTOR_QUERY = defineQuery(`
   *[_type == "landingPage"][0].efficiencyMotor{
@@ -115,7 +119,7 @@ export const EFFICIENCY_MOTOR_QUERY = defineQuery(`
     description,
     image
   }
-`)
+`);
 
 export const ACCESSORIES_QUERY = defineQuery(`
   *[_type == "landingPage"][0].accessories{
@@ -129,7 +133,7 @@ export const ACCESSORIES_QUERY = defineQuery(`
       points
     }
   }
-`)
+`);
 
 export const GALLERY_QUERY = defineQuery(`
   *[_type == "landingPage"][0].gallery{
@@ -149,7 +153,7 @@ export const GALLERY_QUERY = defineQuery(`
 export const COLORS_QUERY = defineQuery(`
   *[_type == "landingPage"][0].color
 
-`)
+`);
 
 export const TESTIMONIALS_QUERY = defineQuery(`
   *[_type == "landingPage"][0].testimonials{
@@ -161,7 +165,7 @@ export const TESTIMONIALS_QUERY = defineQuery(`
       avatar
     }
   }
-`)
+`);
 
 export const NEWSLETTER_QUERY = defineQuery(`
   *[_type == "landingPage"][0].newsletter{
@@ -169,5 +173,4 @@ export const NEWSLETTER_QUERY = defineQuery(`
     description,
     buttonLabel
   }
-`)
-
+`);

@@ -1,7 +1,9 @@
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { HERO_QUERY } from "@/sanity/lib/queries";
+import { ArrowRightIcon } from "@sanity/icons";
 import Image from "next/image";
+import Link from "next/link";
 
 const HeroSection = async () => {
   const { data: content } = await sanityFetch({ query: HERO_QUERY });
@@ -15,9 +17,43 @@ const HeroSection = async () => {
               <span className="font-bold block">{content?.titleBold}</span>
             </h1>
             <hr className="text-[#42454A] my-6 w-80" />
-            <p className="text-[#42454A] font-light text-2xl">
+            <p className="text-[#42454A] font-light text-2xl mb-10">
               {content?.subtitle}
             </p>
+
+            <div className="flex gap-20">
+              <div className="flex items-center gap-3">
+                <Link
+                  type="button"
+                  href={content?.buttonUrl || ""}
+                  className="w-12 h-12 bg-[#42454A]! text-[#F7EAE3]! flex justify-center items-center"
+                >
+                  <ArrowRightIcon className="text-3xl" />
+                </Link>
+
+                <h5 className="text-[#17181A] text-lg font-medium">
+                  {content?.buttonText}
+                </h5>
+              </div>
+
+              <div className="flex items-center justify-center gap-5">
+                {/* <div className="w-50"> */}
+                <h6 className="text-[#414449]">
+                  Watch our <br />
+                  video how <br /> it works
+                </h6>
+                {/* </div> */}
+
+                {content?.videoPlayButton && (
+                  <Image
+                    src={urlFor(content?.videoPlayButton).url()}
+                    alt=""
+                    width={80}
+                    height={80}
+                  />
+                )}
+              </div>
+            </div>
           </div>
           <div>
             {content?.image && (

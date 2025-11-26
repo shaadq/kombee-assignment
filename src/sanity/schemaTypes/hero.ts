@@ -22,13 +22,16 @@ export const hero = defineType({
             type: 'image'
         }),
         defineField({
-            name: 'buttons',
-            type: 'array',
-            of: [
-                defineArrayMember({
-                    type: 'cta'
-                })
-            ]
+            name: 'buttonText',
+            type: 'string'
+        }),
+        defineField({
+            name: 'buttonUrl',
+            type: 'string'
+        }),
+        defineField({
+            name: 'videoPlayButton',
+            type: 'image'
         }),
         defineField({
             name: 'stats',
