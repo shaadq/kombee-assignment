@@ -5,15 +5,15 @@ import { Dropdown } from "antd";
 import Link from "next/link";
 
 interface DropdownChild {
-  url?: string;
-  label: string;
+  url: string | null;
+  label: string | null;
 }
 
 interface CustomDropdownProps {
   item: {
-    label: string;
-    url?: string;
-    children?: DropdownChild[];
+    label: string | null;
+    url: string | null;
+    children: DropdownChild[] | null;
   };
 }
 
@@ -27,12 +27,10 @@ const CustomDropdown = ({ item }: CustomDropdownProps) => {
         })),
       }}
     >
-      {/* <a onClick={(e) => e.preventDefault()}> */}
-      <div className="flex items-center gap-1 uppercase">
+      <div className="flex items-center uppercase cursor-pointer">
         {item.label}
         <ChevronDownIcon className="text-2xl" />
       </div>
-      {/* </a> */}
     </Dropdown>
   );
 };

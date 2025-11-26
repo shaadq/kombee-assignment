@@ -25,12 +25,7 @@ export const landingPage = defineType({
         }),
         defineField({
             name: 'accessories',
-            type: 'array',
-            of: [
-                defineArrayMember({
-                    type: 'accessory'
-                })
-            ]
+            type: 'accessory'
         }),
         defineField({
             name: 'gallery',

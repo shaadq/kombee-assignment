@@ -8,7 +8,7 @@ const EfficiencySection = async () => {
     query: EFFICIENCY_MOTOR_QUERY,
   });
   return (
-    <section className="py-10">
+    <section className="py-10 pb-0">
       <div className="container">
         <h2 className="text-[#42454A] text-center font-bold text-4xl mb-6">
           {content?.title}

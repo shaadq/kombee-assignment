@@ -38,9 +38,7 @@ export type LandingPage = {
       _type: "image";
     };
   };
-  accessories?: Array<{
-    _key: string;
-  } & Accessory>;
+  accessories?: Accessory;
   gallery?: Gallery;
   color?: Color;
   testimonials?: {
@@ -94,6 +92,31 @@ export type Gallery = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
+    _key: string;
+  }>;
+};
+
+export type Accessory = {
+  _type: "accessory";
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonUrl?: string;
+  items?: Array<{
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    points?: Array<string>;
     _key: string;
   }>;
 };
@@ -181,24 +204,6 @@ export type ColorOption = {
   _type: "colorOption";
   label?: string;
   hex?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-};
-
-export type Accessory = {
-  _type: "accessory";
-  name?: string;
-  description?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -568,7 +573,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = LandingPage | Newsletter | Color | Gallery | SanityImageCrop | SanityImageHotspot | ProductInfo | Hero | Testimonial | ColorOption | Accessory | StatItem | Cta | NavItem | Footer | Header | New | Slug | Post | BlockContent | Author | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = LandingPage | Newsletter | Color | Gallery | Accessory | SanityImageCrop | SanityImageHotspot | ProductInfo | Hero | Testimonial | ColorOption | StatItem | Cta | NavItem | Footer | Header | New | Slug | Post | BlockContent | Author | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: POSTS_QUERY
@@ -657,22 +662,7 @@ export type LANDING_PAGE_QUERYResult = {
       _type: "image";
     } | null;
   } | null;
-  accessories: Array<{
-    name: string | null;
-    description: string | null;
-    image: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    } | null;
-  }> | null;
+  accessories: null;
   gallery: {
     sectionTitle: string | null;
     images: Array<{
@@ -828,23 +818,29 @@ export type EFFICIENCY_MOTOR_QUERYResult = {
   } | null;
 } | null;
 // Variable: ACCESSORIES_QUERY
-// Query: *[_type == "landingPage"][0].accessories[]{    name,    description,    image  }
-export type ACCESSORIES_QUERYResult = Array<{
-  name: string | null;
-  description: string | null;
-  image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-}> | null;
+// Query: *[_type == "landingPage"][0].accessories{    title,    subtitle,    buttonText,    buttonUrl,    items[]{      title,      image,      points    }  }
+export type ACCESSORIES_QUERYResult = {
+  title: string | null;
+  subtitle: string | null;
+  buttonText: string | null;
+  buttonUrl: string | null;
+  items: Array<{
+    title: string | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    points: Array<string> | null;
+  }> | null;
+} | null;
 // Variable: GALLERY_QUERY
 // Query: *[_type == "landingPage"][0].gallery{    sectionTitle,    images  }
 export type GALLERY_QUERYResult = {
@@ -959,22 +955,7 @@ export type FULL_PAGE_QUERYResult = {
         _type: "image";
       } | null;
     } | null;
-    accessories: Array<{
-      name: string | null;
-      description: string | null;
-      image: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-      } | null;
-    }> | null;
+    accessories: null;
     gallery: {
       sectionTitle: string | null;
       images: Array<{
@@ -1023,7 +1004,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"landingPage\"][0].hero{\n    title,\n    titleBold,\n    subtitle,\n    image,\n    buttons[]{ label, url },\n    stats[]{ value, unit, label }\n  }\n": HERO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].productInfo{\n    title,\n    subtitle,\n    points,\n    image\n  }\n": PRODUCT_INFO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].efficiencyMotor{\n    title,\n    subtitle,\n    description,\n    image\n  }\n": EFFICIENCY_MOTOR_QUERYResult;
-    "\n  *[_type == \"landingPage\"][0].accessories[]{\n    name,\n    description,\n    image\n  }\n": ACCESSORIES_QUERYResult;
+    "\n  *[_type == \"landingPage\"][0].accessories{\n    title,\n    subtitle,\n    buttonText,\n    buttonUrl,\n    items[]{\n      title,\n      image,\n      points\n    }\n  }\n": ACCESSORIES_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].gallery{\n    sectionTitle,\n    images\n  }\n": GALLERY_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].color\n\n": COLORS_QUERYResult;
     "\n *[_type == \"landingPage\"][0].testimonials\n": TESTIMONIALS_QUERYResult;

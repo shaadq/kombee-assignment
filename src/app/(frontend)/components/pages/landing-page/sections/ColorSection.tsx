@@ -6,7 +6,7 @@ import Image from "next/image";
 const ColorSection = async () => {
   const { data: content } = await sanityFetch({ query: COLORS_QUERY });
   return (
-    <section className="py-10">
+    <section className="py-10 pb-20">
       <div className="container">
         <h2 className="text-[#42454A] text-center font-bold text-4xl mb-6">
           {content?.title}

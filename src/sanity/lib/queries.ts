@@ -118,12 +118,19 @@ export const EFFICIENCY_MOTOR_QUERY = defineQuery(`
 `)
 
 export const ACCESSORIES_QUERY = defineQuery(`
-  *[_type == "landingPage"][0].accessories[]{
-    name,
-    description,
-    image
+  *[_type == "landingPage"][0].accessories{
+    title,
+    subtitle,
+    buttonText,
+    buttonUrl,
+    items[]{
+      title,
+      image,
+      points
+    }
   }
 `)
+
 
 export const GALLERY_QUERY = defineQuery(`
   *[_type == "landingPage"][0].gallery{
