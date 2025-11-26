@@ -10,6 +10,7 @@ import NewsletterSection from "./sections/NewsletterSection";
 import ProductInfoSection from "./sections/ProductInfoSection";
 import TestimonialSection from "./sections/TestimonialSection";
 import Header from "../../common/header/Header";
+import Footer from "../../common/footer/Footer";
 
 export default async function LandingPage() {
   const { data: posts } = await sanityFetch({ query: HEADER_QUERY });
@@ -25,6 +26,7 @@ export default async function LandingPage() {
       <ColorSection />
       <TestimonialSection />
       <NewsletterSection />
+      <Footer />
     </React.Fragment>
   );
 }

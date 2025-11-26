@@ -82,7 +82,9 @@ export const FOOTER_QUERY = defineQuery(`
       title,
       links[]{ label, url }
     },
-    socialLinks[]{ label, url },image
+    socials[]{ image, url },
+    image,
+    copyright
   }
 `)
 

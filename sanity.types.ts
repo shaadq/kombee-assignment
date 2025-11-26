@@ -263,6 +263,22 @@ export type Footer = {
     } & NavItem>;
     _key: string;
   }>;
+  socials?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    url?: string;
+    _key: string;
+  }>;
   socialLinks?: Array<{
     label?: string;
     url?: string;
@@ -711,7 +727,7 @@ export type HEADER_QUERYResult = {
   }> | null;
 } | null;
 // Variable: FOOTER_QUERY
-// Query: *[_type == "footer"][0]{    columns[]{      title,      links[]{ label, url }    },    socialLinks[]{ label, url },image  }
+// Query: *[_type == "footer"][0]{    columns[]{      title,      links[]{ label, url }    },    socials[]{ image, url },    socialLinks[]{ label, url },image  }
 export type FOOTER_QUERYResult = {
   columns: Array<{
     title: string | null;
@@ -719,6 +735,21 @@ export type FOOTER_QUERYResult = {
       label: string | null;
       url: string | null;
     }> | null;
+  }> | null;
+  socials: Array<{
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    url: string | null;
   }> | null;
   socialLinks: Array<{
     label: string | null;
@@ -998,7 +1029,7 @@ declare module "@sanity/client" {
     "*[_type == \"post\" && slug.current == $slug][0]{\n  title, body, mainImage\n}": POST_QUERYResult;
     "\n  *[_type == \"landingPage\"][0]{\n    hero{\n      title,\n      subtitle,\n      image,\n      buttons[]{\n        label,\n        url\n      },\n      stats[]{\n        value,\n        label\n      }\n    },\n\n    productInfo{\n      title,\n      points,\n      image\n    },\n\n    efficiencyMotor{\n      title,\n      subtitle,\n      description,\n      image\n    },\n\n    accessories[]{\n      name,\n      description,\n      image\n    },\n\n    gallery{\n      sectionTitle,\n      images\n    },\n\n    colors[]{\n      label,\n      hex,\n      image\n    },\n\n    testimonials[]{\n      quote,\n      name,\n      role,\n      avatar\n    },\n\n    newsletter{\n      title,\n      description,\n      buttonLabel\n    }\n  }\n": LANDING_PAGE_QUERYResult;
     "\n  *[_type == \"header\"][0]{\n    logo,\n    navItems[]{ label, url, type, children[] {label, url} }\n  }\n": HEADER_QUERYResult;
-    "\n  *[_type == \"footer\"][0]{\n    columns[]{\n      title,\n      links[]{ label, url }\n    },\n    socialLinks[]{ label, url },image\n  }\n": FOOTER_QUERYResult;
+    "\n  *[_type == \"footer\"][0]{\n    columns[]{\n      title,\n      links[]{ label, url }\n    },\n    socials[]{ image, url },\n    socialLinks[]{ label, url },image\n  }\n": FOOTER_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].hero{\n    title,\n    titleBold,\n    subtitle,\n    image,\n    buttons[]{ label, url },\n    stats[]{ value, unit, label }\n  }\n": HERO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].productInfo{\n    title,\n    subtitle,\n    points,\n    image\n  }\n": PRODUCT_INFO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].efficiencyMotor{\n    title,\n    subtitle,\n    description,\n    image\n  }\n": EFFICIENCY_MOTOR_QUERYResult;

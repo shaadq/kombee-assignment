@@ -10,6 +10,10 @@ export const footer = defineType({
             type: 'image'
         }),
         defineField({
+            name: 'copyright',
+            type: 'string'
+        }),
+        defineField({
             name: 'columns',
             type: 'array',
             of: [
@@ -31,17 +35,21 @@ export const footer = defineType({
             ]
         }),
         defineField({
-            name: 'socialLinks',
+            name: 'socials',
             type: 'array',
             of: [
                 defineArrayMember({
                     type: 'object',
                     fields: [
-                        defineField({ name: 'label', type: 'string' }),
-                        defineField({ name: 'url', type: 'url' })
+                        defineField({ name: 'image', type: 'image' }),
+                        defineField({
+                            name: 'url',
+                            type: 'string',
+                        })
                     ]
                 })
             ]
-        })
+        }),
+
     ]
 })
