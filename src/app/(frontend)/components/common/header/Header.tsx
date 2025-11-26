@@ -8,6 +8,7 @@ import CustomDropdown from "./CustomDropdown";
 
 const Header = async () => {
   const { data: content } = await sanityFetch({ query: HEADER_QUERY });
+  console.log(content);
 
   return (
     <header className="h-[100px] shadow-sm">
@@ -40,10 +41,23 @@ const Header = async () => {
         </div>
 
         <div className="flex gap-10">
-          <button className="text-[#42454A] uppercase">Log in</button>
-          <button className="px-[26px] py-[14px] text-white bg-[#42454A] uppercase rounded-[4px] cursor-pointer shadow-md">
-            sign up
-          </button>
+          {content?.button1Text && content?.button1Url && (
+            <Link
+              href={content.button1Url}
+              className="text-[#42454A]! uppercase flex items-center"
+            >
+              {content.button1Text}
+            </Link>
+          )}
+
+          {content?.button2Text && content?.button2Url && (
+            <Link
+              href={content.button2Url}
+              className="px-[26px] py-[14px] text-white! bg-[#42454A]! uppercase rounded-[4px] cursor-pointer shadow-md"
+            >
+              {content.button2Text}
+            </Link>
+          )}
         </div>
       </div>
     </header>

@@ -325,6 +325,10 @@ export type Header = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  button1Text?: string;
+  button1Url?: string;
+  button2Text?: string;
+  button2Url?: string;
   navItems?: Array<{
     _key: string;
   } & NavItem>;
@@ -435,12 +439,6 @@ export type Slug = {
 export type AllSanitySchemaTypes = LandingPage | Newsletter | Color | Gallery | Accessory | SanityImageCrop | SanityImageHotspot | ProductInfo | Hero | Testimonial | ColorOption | StatItem | Cta | NavItem | Footer | Header | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
-// Variable: POSTS_QUERY
-// Query: *[_type == "post" && defined(slug.current)][0...12]{  _id, title, slug}
-export type POSTS_QUERYResult = Array<never>;
-// Variable: POST_QUERY
-// Query: *[_type == "post" && slug.current == $slug][0]{  title, body, mainImage}
-export type POST_QUERYResult = null;
 // Variable: LANDING_PAGE_QUERY
 // Query: *[_type == "landingPage"][0]{    hero{      title,      subtitle,      image,      buttons[]{        label,        url      },      stats[]{        value,        label      }    },    productInfo{      title,      points,      image    },    efficiencyMotor{      title,      subtitle,      description,      image    },    accessories[]{      name,      description,      image    },    gallery{      sectionTitle,      images    },    colors[]{      label,      hex,      image    },    testimonials[]{      quote,      name,      role,      avatar    },    newsletter{      title,      description,      buttonLabel    }  }
 export type LANDING_PAGE_QUERYResult = {
@@ -527,7 +525,7 @@ export type LANDING_PAGE_QUERYResult = {
   } | null;
 } | null;
 // Variable: HEADER_QUERY
-// Query: *[_type == "header"][0]{    logo,    navItems[]{ label, url, type, children[] {label, url} }  }
+// Query: *[_type == "header"][0]{    logo,    button1Text,    button1Url,    button2Text,    button2Url,    navItems[]{ label, url, type, children[] {label, url} }  }
 export type HEADER_QUERYResult = {
   logo: {
     asset?: {
@@ -541,6 +539,10 @@ export type HEADER_QUERYResult = {
     crop?: SanityImageCrop;
     _type: "image";
   } | null;
+  button1Text: string | null;
+  button1Url: string | null;
+  button2Text: string | null;
+  button2Url: string | null;
   navItems: Array<{
     label: string | null;
     url: string | null;
@@ -752,10 +754,8 @@ export type NEWSLETTER_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"post\" && defined(slug.current)][0...12]{\n  _id, title, slug\n}": POSTS_QUERYResult;
-    "*[_type == \"post\" && slug.current == $slug][0]{\n  title, body, mainImage\n}": POST_QUERYResult;
     "\n  *[_type == \"landingPage\"][0]{\n    hero{\n      title,\n      subtitle,\n      image,\n      buttons[]{\n        label,\n        url\n      },\n      stats[]{\n        value,\n        label\n      }\n    },\n\n    productInfo{\n      title,\n      points,\n      image\n    },\n\n    efficiencyMotor{\n      title,\n      subtitle,\n      description,\n      image\n    },\n\n    accessories[]{\n      name,\n      description,\n      image\n    },\n\n    gallery{\n      sectionTitle,\n      images\n    },\n\n    colors[]{\n      label,\n      hex,\n      image\n    },\n\n    testimonials[]{\n      quote,\n      name,\n      role,\n      avatar\n    },\n\n    newsletter{\n      title,\n      description,\n      buttonLabel\n    }\n  }\n": LANDING_PAGE_QUERYResult;
-    "\n  *[_type == \"header\"][0]{\n    logo,\n    navItems[]{ label, url, type, children[] {label, url} }\n  }\n": HEADER_QUERYResult;
+    "\n  *[_type == \"header\"][0]{\n    logo,\n    button1Text,\n    button1Url,\n    button2Text,\n    button2Url,\n    navItems[]{ label, url, type, children[] {label, url} }\n  }\n": HEADER_QUERYResult;
     "\n  *[_type == \"footer\"][0]{\n    columns[]{\n      title,\n      links[]{ label, url }\n    },\n    socials[]{ image, url },\n    image,\n    copyright\n  }\n": FOOTER_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].hero{\n    title,\n    titleBold,\n    subtitle,\n    image,\n    buttonText,\n    buttonUrl,\n    videoPlayButton,\n    stats[]{ value, unit, label }\n  }\n": HERO_QUERYResult;
     "\n  *[_type == \"landingPage\"][0].productInfo{\n    title,\n    subtitle,\n    points,\n    image\n  }\n": PRODUCT_INFO_QUERYResult;

@@ -11,6 +11,22 @@ export const header = defineType({
             options: { hotspot: true }
         }),
         defineField({
+            name: 'button1Text',
+            type: 'string',
+        }),
+        defineField({
+            name: 'button1Url',
+            type: 'url',
+        }),
+        defineField({
+            name: 'button2Text',
+            type: 'string',
+        }),
+        defineField({
+            name: 'button2Url',
+            type: 'url',
+        }),
+        defineField({
             name: 'navItems',
             title: 'Navigation Items',
             type: 'array',

@@ -1,15 +1,5 @@
 import { defineQuery } from "next-sanity";
 
-export const POSTS_QUERY =
-  defineQuery(`*[_type == "post" && defined(slug.current)][0...12]{
-  _id, title, slug
-}`);
-
-export const POST_QUERY =
-  defineQuery(`*[_type == "post" && slug.current == $slug][0]{
-  title, body, mainImage
-}`);
-
 export const LANDING_PAGE_QUERY = defineQuery(`
   *[_type == "landingPage"][0]{
     hero{
@@ -74,6 +64,10 @@ export const LANDING_PAGE_QUERY = defineQuery(`
 export const HEADER_QUERY = defineQuery(`
   *[_type == "header"][0]{
     logo,
+    button1Text,
+    button1Url,
+    button2Text,
+    button2Url,
     navItems[]{ label, url, type, children[] {label, url} }
   }
 `);
