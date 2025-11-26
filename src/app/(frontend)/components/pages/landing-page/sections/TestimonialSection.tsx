@@ -11,6 +11,7 @@ const TestimonialSection = async () => {
           {content?.title}
         </h2>
 
+        {/* @ts-expect-error: Sanity items don't match strict Testimonial type */}
         <TestimonialSwiper testimonials={content?.items || []} />
       </div>
     </section>

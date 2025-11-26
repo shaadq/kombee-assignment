@@ -9,7 +9,7 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 
 type Testimonial = {
-  quote: string;
+  quote: string | null;
   name: string;
   role: string;
   avatar: string;
